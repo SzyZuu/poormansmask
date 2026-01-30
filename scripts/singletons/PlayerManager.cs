@@ -1,18 +1,32 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using poormansmask.scripts;
+using poormansmask.scripts.enums;
+using poormansmask.scripts.interfaces;
 
-public partial class PlayerManager : Node
+public partial class PlayerManager : Node, IPickUp
 {
-	private int _maxHealth = 10;
-	private int _currentHealth;
-	private int _maxArmor = 10;
 	private int _currentArmor;
-	private float _damageMult = 1;
+	private int _currentHealth;
+	
+	float[] _stats = new float[Enum.GetValues(typeof(StatImprovements)).Length];
+	private List<Item> _inventory = new List<Item>();
 
 	override public void _Ready()
 	{
-		_currentHealth = _maxHealth;
-		_currentArmor = _maxArmor;
+		for (int i = 0; i < _stats.Length; i++)
+		{
+			_stats[i] = (StatImprovements)i switch
+			{
+				StatImprovements.DAMAGEMULTIPLIER => 1,
+				StatImprovements.MAXARMOR => 10,
+				StatImprovements.MAXHEALTH => 10,
+			};
+		}
+		
+		_currentHealth = (int)_stats[(int)StatImprovements.MAXHEALTH];
+		_currentArmor = (int)_stats[(int)StatImprovements.MAXARMOR];
 		
 		var timer = new Timer();
 		AddChild(timer);
@@ -31,5 +45,15 @@ public partial class PlayerManager : Node
 		int dealtHealth = Math.Max(amount - dealtArmor, 0);
 		_currentHealth -= dealtHealth;
 		return dealtArmor + dealtHealth;
+	}
+
+	public void ItemPickUp(Item item)
+	{
+		_inventory.Add(item);
+		
+		for (int i = 0; i < Enum.GetValues(typeof(StatImprovements)).Length; i++)
+		{
+			_stats[i] += item.GetStatImprovements()[i];
+		}
 	}
 }
