@@ -1,6 +1,8 @@
-[gd_resource type="Resource" format=3 uid="uid://btr3tq23kqu1w"]
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://btr3tq23kqu1w"]
 
 [ext_resource type="Script" uid="uid://b54cdnq0l05ki" path="res://scripts/ItemResource.cs" id="1_8w8dx"]
 
 [resource]
 script = ExtResource("1_8w8dx")
+_itemName = "Test Item"
+_itemDescription = "ooga booga"

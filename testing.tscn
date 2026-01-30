@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://ildk35bb6hxj"]
 
 [ext_resource type="PackedScene" uid="uid://dwc0pq5f6c5uh" path="res://player.tscn" id="1_qrja6"]
-[ext_resource type="Script" uid="uid://d0nbc4oegxuuh" path="res://items/Item.cs" id="2_co24e"]
-[ext_resource type="Script" uid="uid://b54cdnq0l05ki" path="res://scripts/ItemResource.cs" id="3_feb8i"]
+[ext_resource type="Script" path="res://items/Item.cs" id="2_co24e"]
+[ext_resource type="Resource" uid="uid://btr3tq23kqu1w" path="res://items/test.tres" id="3_feb8i"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_co24e"]
 
@@ -13,9 +13,6 @@ size = Vector2(523, 1)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_co24e"]
 size = Vector2(20, 20)
-
-[sub_resource type="Resource" id="Resource_kj3p2"]
-script = ExtResource("3_feb8i")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_feb8i"]
 
@@ -47,7 +44,7 @@ texture = SubResource("PlaceholderTexture2D_co24e")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=734037345]
 script = ExtResource("2_co24e")
-itemData = SubResource("Resource_kj3p2")
+itemData = ExtResource("3_feb8i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1837776975]
 shape = SubResource("RectangleShape2D_feb8i")
