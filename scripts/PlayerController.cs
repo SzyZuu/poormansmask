@@ -5,6 +5,8 @@ public partial class PlayerController : CharacterBody2D
 {
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
+	private bool _coyoteActive = false;
+	private bool lastFrameFloor = false;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -13,25 +15,35 @@ public partial class PlayerController : CharacterBody2D
 		// Add the gravity.
 		if (!IsOnFloor())
 		{
+			if (!_coyoteActive && lastFrameFloor)
+			{
+				_coyoteActive = true;
+				GetTree().CreateTimer(0.2).Timeout += () =>
+				{
+					_coyoteActive = false;
+				};
+			}
 			velocity += GetGravity() * (float)delta;
-		}
+			lastFrameFloor = false;
+		}else
+			lastFrameFloor = true;
 
 		// Handle Jump.
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
+		if (Input.IsActionJustPressed("jump") && (IsOnFloor() || _coyoteActive))
 		{
 			velocity.Y = JumpVelocity;
 		}
 
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
-		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		if (direction != Vector2.Zero)
+		float direction = Input.GetAxis("left", "right");
+		if (direction != 0f)
 		{
-			velocity.X = direction.X * Speed;
+			velocity.X = Mathf.MoveToward(Velocity.X, direction * Speed, Speed * (float)delta * 4f);
 		}
 		else
 		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed * (float)delta * 4f);
 		}
 
 		Velocity = velocity;
