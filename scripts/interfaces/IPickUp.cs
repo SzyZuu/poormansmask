@@ -2,5 +2,5 @@
 
 public interface IPickUp
 {
-    public void ItemPickUp(Item item);
+    public void ItemPickUp(ItemResource itemResource);
 }

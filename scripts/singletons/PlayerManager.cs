@@ -11,7 +11,7 @@ public partial class PlayerManager : Node, IPickUp
 	private int _currentHealth;
 	
 	float[] _stats = new float[Enum.GetValues(typeof(StatImprovements)).Length];
-	private List<Item> _inventory = new List<Item>();
+	private List<ItemResource> _inventory = new List<ItemResource>();
 
 	override public void _Ready()
 	{
@@ -47,13 +47,13 @@ public partial class PlayerManager : Node, IPickUp
 		return dealtArmor + dealtHealth;
 	}
 
-	public void ItemPickUp(Item item)
+	public void ItemPickUp(ItemResource itemResource)
 	{
-		_inventory.Add(item);
+		_inventory.Add(itemResource);
 		
 		for (int i = 0; i < Enum.GetValues(typeof(StatImprovements)).Length; i++)
 		{
-			_stats[i] += item.GetStatImprovements()[i];
+			_stats[i] += itemResource.GetStatImprovements()[i];
 		}
 	}
 }

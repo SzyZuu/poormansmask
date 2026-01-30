@@ -1,11 +1,7 @@
-﻿using System;
-using poormansmask.scripts.enums;
+using Godot;
+using System;
 
-namespace poormansmask.scripts;
-
-public abstract class Item
+public partial class Item : Area2D
 {
-    private float[] _statImprovements = new float[Enum.GetValues(typeof(StatImprovements)).Length];
-    
-    public float[] GetStatImprovements() =>  _statImprovements;
+	[Export] public Resource itemData;
 }
