@@ -15,7 +15,6 @@ public partial class PlayerController : CharacterBody2D
 		// Add the gravity.
 		if (!IsOnFloor())
 		{
-			lastFrameFloor = false;
 			if (!_coyoteActive && lastFrameFloor)
 			{
 				_coyoteActive = true;
@@ -25,21 +24,22 @@ public partial class PlayerController : CharacterBody2D
 				};
 			}
 			velocity += GetGravity() * (float)delta;
+			lastFrameFloor = false;
 		}else
 			lastFrameFloor = true;
 
 		// Handle Jump.
-		if (Input.IsActionJustPressed("ui_accept") && (IsOnFloor() || _coyoteActive))
+		if (Input.IsActionJustPressed("jump") && (IsOnFloor() || _coyoteActive))
 		{
 			velocity.Y = JumpVelocity;
 		}
 
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
-		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		if (direction != Vector2.Zero)
+		float direction = Input.GetAxis("left", "right");
+		if (direction != 0f)
 		{
-			velocity.X = direction.X * Speed;
+			velocity.X = direction * Speed;
 		}
 		else
 		{
