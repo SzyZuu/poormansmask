@@ -5,6 +5,7 @@ public partial class PlayerController : CharacterBody2D
 {
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
+	private bool _coyoteActive = false;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -13,11 +14,16 @@ public partial class PlayerController : CharacterBody2D
 		// Add the gravity.
 		if (!IsOnFloor())
 		{
+			_coyoteActive = true;
+			GetTree().CreateTimer(0.2).Timeout += () =>
+			{
+				_coyoteActive = false;
+			};
 			velocity += GetGravity() * (float)delta;
 		}
 
 		// Handle Jump.
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
+		if (Input.IsActionJustPressed("ui_accept") && (IsOnFloor() || _coyoteActive))
 		{
 			velocity.Y = JumpVelocity;
 		}
