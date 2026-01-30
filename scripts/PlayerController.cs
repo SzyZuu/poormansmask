@@ -39,11 +39,11 @@ public partial class PlayerController : CharacterBody2D
 		float direction = Input.GetAxis("left", "right");
 		if (direction != 0f)
 		{
-			velocity.X = direction * Speed;
+			velocity.X = Mathf.MoveToward(Velocity.X, direction * Speed, Speed * (float)delta * 4f);
 		}
 		else
 		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed * (float)delta * 4f);
 		}
 
 		Velocity = velocity;
