@@ -27,7 +27,6 @@ public partial class Item : Area2D
 		{
 			_guiContainer.Visible = true;
 			//body.Call("ItemPickUp", ItemData);
-			GD.Print("ItemExited");
 		}
 	}
 

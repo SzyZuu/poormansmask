@@ -59,23 +59,23 @@ shape = SubResource("RectangleShape2D_feb8i")
 texture = SubResource("PlaceholderTexture2D_feb8i")
 
 [node name="ItemInfo" type="Control" parent="Item" unique_id=135382290]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 
-[node name="ItemName" type="Label" parent="Item/ItemInfo" unique_id=776497617]
+[node name="PanelContainer" type="PanelContainer" parent="Item/ItemInfo" unique_id=1733880790]
 layout_mode = 0
 offset_left = -12.0
-offset_top = -95.0
-offset_right = 28.0
-offset_bottom = -72.0
-scale = Vector2(1.3127148, 1.3127148)
+offset_top = -42.0
+offset_right = 21.0
+offset_bottom = -15.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Item/ItemInfo/PanelContainer" unique_id=1247689383]
+layout_mode = 2
+
+[node name="ItemName" type="Label" parent="Item/ItemInfo/PanelContainer/VBoxContainer" unique_id=776497617]
+layout_mode = 2
 text = "Test"
 
-[node name="ItemDesc" type="RichTextLabel" parent="Item/ItemInfo" unique_id=1892487452]
-layout_mode = 0
-offset_left = -9.0
-offset_top = -64.0
-offset_right = 100.054
-offset_bottom = 31.884003
+[node name="ItemDesc" type="RichTextLabel" parent="Item/ItemInfo/PanelContainer/VBoxContainer" unique_id=1892487452]
+layout_mode = 2
 text = "dfsgdgdsfgs"
