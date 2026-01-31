@@ -19,6 +19,7 @@ public partial class Item : Area2D
 		
 		itemNameLabel.Text = ItemData.ItemName;
 		itemDescriptionLabel.Text = ItemData.ItemDescription;
+		
 	}
 
 	private void OnItemEnter(Node2D body)
