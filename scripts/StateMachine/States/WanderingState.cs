@@ -7,8 +7,6 @@ public partial class WanderingState : StateBase
 {
     public override void Activate()
     {
-        var node = GetNode<Control>("Whatever bro");
-        node.Visible = true;
     }
 
     public override void Deactivate()
@@ -30,7 +28,7 @@ public partial class WanderingState : StateBase
     public override void PhysicsProcess(float delta)
     {
         frameCounter++; 
-        var parent = OwnerTree.Owner.As<CharacterBody2D>();
+        var parent = OwnerTree.Owner as CharacterBody2D;
 
         UpdateDir();
         if (frameCounter >= 5)
@@ -45,13 +43,13 @@ public partial class WanderingState : StateBase
         {
             parentVelY += (parent.GetGravity() * delta).Y;
         }
-        parent.Set("velocity", new Vector2(_dir * _speed, parentVelY));
+        parent.Velocity = new(_dir * _speed, parentVelY);
         parent.MoveAndSlide();
     }
 
     void UpdateDir()
     {
-        var parent = OwnerTree.Owner.As<CharacterBody2D>();
+        var parent = OwnerTree.Owner as CharacterBody2D;
         var raySidePos = _dir * (_speed * .25f) + parent.GlobalPosition.X;
         var querySide = PhysicsRayQueryParameters2D.Create(parent.GlobalPosition,
             new Vector2(raySidePos, parent.GlobalPosition.Y), 1);
@@ -72,19 +70,17 @@ public partial class WanderingState : StateBase
                 _dir *= -1;
             }
         }
-
-
     }
 
     [Export]
     private int _viewResolution = 5;
     void LookForPlayer()
     {
-        var parent = OwnerTree.Owner.As<CharacterBody2D>();
+        var parent = OwnerTree.Owner as CharacterBody2D;
 
         var dirSpaceState = GetTree().GetRoot().World2D.GetDirectSpaceState();
         var dir = new Vector2(_dir, 0);
-        var querySide = PhysicsRayQueryParameters2D.Create(parent.GlobalPosition, parent.GlobalPosition + dir * (_speed * .25f));
+        var querySide = PhysicsRayQueryParameters2D.Create(parent.GlobalPosition, parent.GlobalPosition + dir * (_speed * 3f), 2);
         var resultSide = dirSpaceState.IntersectRay(querySide);
         float maxRotRad = (float)Math.PI/2f;
         float rotStep = maxRotRad / _viewResolution;
@@ -95,11 +91,11 @@ public partial class WanderingState : StateBase
         }
         for (int i = 0; i < _viewResolution; i++)
         {
-            for (int x = -1; i <= 1; i += 2)
+            for (int x = -1; x <= 1; x += 2)
             {
                 float rot = rotStep * x * i;
                 var rayDir = dir.Rotated(rot);
-                var query = PhysicsRayQueryParameters2D.Create(parent.GlobalPosition, parent.GlobalPosition + rayDir * (_speed * .25f), 2);
+                var query = PhysicsRayQueryParameters2D.Create(parent.GlobalPosition, parent.GlobalPosition + rayDir * (_speed * 3f), 2);
                 var res = dirSpaceState.IntersectRay(query);
                 if (res.ContainsKey("position"))
                 {

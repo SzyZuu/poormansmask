@@ -8,15 +8,12 @@ public partial class ChaseState : StateBase
 	
 	private CharacterBody2D _player;
 	public CharacterBody2D Player => _player;
-	
-	public override void _Ready()
+
+	public override void Activate()
 	{
 		var pm = GetNode("/root/PlayerManager") as PlayerManager;
 		_player = pm.Player;
 	}
-
-	public override void Activate()
-	{ return; }
 
 	public override void Deactivate()
 	{ return; }
@@ -37,16 +34,32 @@ public partial class ChaseState : StateBase
 	
 	[Export] private StateBase _stateDistanceReached;
 	[Export] private StateBase _stateOutOfBounds;
-	
-	public override void PhysicsProcess(float delta) 
-	{
-		if (!IsInstanceValid(Player)) return;
 
-		var owner = Owner as CharacterBody2D;
-		if (!IsInstanceValid(owner)) return;
-		
+	public override void PhysicsProcess(float delta)
+	{
+		if (!IsInstanceValid(Player))
+		{
+			var pm = GetNode("/root/PlayerManager") as PlayerManager;
+			_player = pm.Player;
+			if (!IsInstanceValid(Player))
+			{
+				GD.Print("We are cooked GNG");
+				return;
+			}
+		}
+
+		var owner = OwnerTree.GetParent() as CharacterBody2D;
+
+		if (!IsInstanceValid(owner))
+		{
+			GD.Print("FUCK");
+			return;}
+
+		int count = 0;
+
 		if (Mathf.Abs(Player.GlobalPosition.X - owner.GlobalPosition.X) > _targetDistance.X)
 		{
+			count++;
 			var side = Mathf.Sign(Player.GlobalPosition.X - owner.GlobalPosition.X);
 			Vector2 vel = new(_speed * side, owner.Velocity.Y);
 			owner.Velocity = vel;
@@ -54,6 +67,7 @@ public partial class ChaseState : StateBase
 
 		if (Mathf.Abs(Player.GlobalPosition.Y - owner.GlobalPosition.Y) > _targetDistance.Y && _flying)
 		{
+			count++;
 			var dir = Mathf.Sign(Player.GlobalPosition.Y - owner.GlobalPosition.Y);
 			if (_flying)
 			{
@@ -61,6 +75,18 @@ public partial class ChaseState : StateBase
 				owner.Velocity = vel;
 			}
 		}
+
+		if (Player.GlobalPosition.DistanceTo(owner.GlobalPosition) > _distanceOutOfBounds)
+		{
+			GD.Print("Out of bounds");
+			OwnerTree.ChangeState(_stateOutOfBounds);
+		}
+
+		if (count < 1)
+		{
+			GD.Print("Reached");
+			OwnerTree.ChangeState(_stateDistanceReached);
+		}		
 		
 		if (!_flying && !owner.IsOnFloor())
 		{

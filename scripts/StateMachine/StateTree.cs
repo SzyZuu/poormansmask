@@ -4,9 +4,9 @@ using System;
 [GlobalClass]
 public partial class StateTree : Node
 {
-	private Variant _owner;
+	private Node _owner;
 
-	public Variant Owner => _owner;
+	public new Node Owner => _owner;
 
 	[Export]
 	private StateBase _activeState = null;
@@ -18,22 +18,27 @@ public partial class StateTree : Node
 
 	public override void _Process(double delta)
 	{
+		_owner = GetParent();
+
 		if (_activeState != null && IsInstanceValid(_activeState))
-		{
 			_activeState.Process((float)delta);
-		}
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		_activeState.PhysicsProcess((float)delta);
+		if (_activeState != null && IsInstanceValid(_activeState))
+			_activeState.PhysicsProcess((float)delta);
 	}
 	
 	public void ChangeState(StateBase newState)
 	{
-		_activeState.Deactivate();
+		if (_activeState != null && IsInstanceValid(_activeState))
+		{
+			_activeState.Deactivate();
+			GD.Print(_activeState.Name + " changed " + newState.Name);
+		}
+
 		_activeState = newState;
 		_activeState.Activate();
-		
 	}
 }
