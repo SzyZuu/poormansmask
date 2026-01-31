@@ -12,6 +12,6 @@ public abstract partial class StateBase : Node
 	}
 	public abstract void Activate();
 	public abstract void Deactivate();
-	public abstract void Process();
-
+	public abstract void Process(float delta);
+	public abstract void PhysicsProcess(float delta);
 }

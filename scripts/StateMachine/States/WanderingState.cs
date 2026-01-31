@@ -7,9 +7,15 @@ public partial class WanderingState : StateBase
 {
     public override void Activate()
     {
+        var node = GetNode<Control>("Whatever bro");
+        node.Visible = true;
     }
 
     public override void Deactivate()
+    {
+    }
+
+    public override void Process(float delta)
     {
     }
 
@@ -21,7 +27,7 @@ public partial class WanderingState : StateBase
     [Export]
     private float _speed = 150f;
     int frameCounter = 0;
-    public override void Process()
+    public override void PhysicsProcess(float delta)
     {
         frameCounter++; 
         var parent = OwnerTree.Owner.As<CharacterBody2D>();
@@ -33,11 +39,11 @@ public partial class WanderingState : StateBase
             LookForPlayer();
         }
 
-        float parentVelY = parent.Velocity.Y;
+        var parentVelY = parent.Velocity.Y;
         
         if (!parent.IsOnFloor())
         {
-            parentVelY += 50;
+            parentVelY += (parent.GetGravity() * delta).Y;
         }
         parent.Set("velocity", new Vector2(_dir * _speed, parentVelY));
         parent.MoveAndSlide();
@@ -73,36 +79,36 @@ public partial class WanderingState : StateBase
     [Export]
     private int _viewResolution = 5;
     void LookForPlayer()
-        {
-            var parent = OwnerTree.Owner.As<CharacterBody2D>();
+    {
+        var parent = OwnerTree.Owner.As<CharacterBody2D>();
 
-            var dirSpaceState = GetTree().GetRoot().World2D.GetDirectSpaceState();
-            var dir = new Vector2(_dir, 0);
-            var querySide = PhysicsRayQueryParameters2D.Create(parent.GlobalPosition, parent.GlobalPosition + dir * (_speed * .25f));
-            var resultSide = dirSpaceState.IntersectRay(querySide);
-            float maxRotRad = (float)Math.PI/2f;
-            float rotStep = maxRotRad / _viewResolution;
-            if (resultSide.ContainsKey("position"))
+        var dirSpaceState = GetTree().GetRoot().World2D.GetDirectSpaceState();
+        var dir = new Vector2(_dir, 0);
+        var querySide = PhysicsRayQueryParameters2D.Create(parent.GlobalPosition, parent.GlobalPosition + dir * (_speed * .25f));
+        var resultSide = dirSpaceState.IntersectRay(querySide);
+        float maxRotRad = (float)Math.PI/2f;
+        float rotStep = maxRotRad / _viewResolution;
+        if (resultSide.ContainsKey("position"))
+        {
+            OwnerTree.ChangeState(_stateOnPlayerDetect);
+            return;
+        }
+        for (int i = 0; i < _viewResolution; i++)
+        {
+            for (int x = -1; i <= 1; i += 2)
             {
-                OwnerTree.ChangeState(_stateOnPlayerDetect);
-                return;
-            }
-            for (int i = 0; i < _viewResolution; i++)
-            {
-                for (int x = -1; i <= 1; i += 2)
+                float rot = rotStep * x * i;
+                var rayDir = dir.Rotated(rot);
+                var query = PhysicsRayQueryParameters2D.Create(parent.GlobalPosition, parent.GlobalPosition + rayDir * (_speed * .25f), 2);
+                var res = dirSpaceState.IntersectRay(query);
+                if (res.ContainsKey("position"))
                 {
-                    float rot = rotStep * x * i;
-                    var rayDir = dir.Rotated(rot);
-                    var query = PhysicsRayQueryParameters2D.Create(parent.GlobalPosition, parent.GlobalPosition + rayDir * (_speed * .25f), 2);
-                    var res = dirSpaceState.IntersectRay(query);
-                    if (res.ContainsKey("position"))
-                    {
-                        OwnerTree.ChangeState(_stateOnPlayerDetect);
-                        return;
-                    }
+                    OwnerTree.ChangeState(_stateOnPlayerDetect);
+                    return;
                 }
             }
         }
+    }
 }
 
 
