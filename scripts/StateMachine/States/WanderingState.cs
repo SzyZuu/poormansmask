@@ -80,7 +80,7 @@ public partial class WanderingState : StateBase
 
         var dirSpaceState = GetTree().GetRoot().World2D.GetDirectSpaceState();
         var dir = new Vector2(_dir, 0);
-        var querySide = PhysicsRayQueryParameters2D.Create(parent.GlobalPosition, parent.GlobalPosition + dir * (_speed * 3f), 2);
+        var querySide = PhysicsRayQueryParameters2D.Create(parent.GlobalPosition, parent.GlobalPosition + dir * (_speed *   3f), 2);
         var resultSide = dirSpaceState.IntersectRay(querySide);
         float maxRotRad = (float)Math.PI/2f;
         float rotStep = maxRotRad / _viewResolution;

@@ -8,7 +8,10 @@ public abstract partial class StateBase : Node
 	public StateTree OwnerTree => _stateTree;
 	public override void _Ready()
 	{
-		_stateTree = GetParent<StateTree>();
+		var parent = GetParent();
+		while (IsInstanceValid(parent) && parent is not StateTree)
+			parent = parent.GetParent();
+		_stateTree = parent as StateTree;
 	}
 	public abstract void Activate();
 	public abstract void Deactivate();
