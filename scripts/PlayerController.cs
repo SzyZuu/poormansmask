@@ -8,6 +8,12 @@ public partial class PlayerController : CharacterBody2D
 	private bool _coyoteActive = false;
 	private bool lastFrameFloor = false;
 
+	public override void _Ready()
+	{
+		PlayerManager pm =  GetNode<PlayerManager>("/root/PlayerManager");
+		pm.Player = this;
+	}
+	
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;

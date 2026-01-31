@@ -13,6 +13,18 @@ public partial class PlayerManager : Node, IPickUp
 	float[] _stats = new float[Enum.GetValues(typeof(StatImprovements)).Length];
 	private List<ItemResource> _inventory = new List<ItemResource>();
 
+	private CharacterBody2D _playerBody;
+
+	[Export]
+	public CharacterBody2D Player
+	{
+		get => _playerBody;
+		set
+		{
+			_playerBody = value;
+		}
+	}
+	
 	override public void _Ready()
 	{
 		for (int i = 0; i < _stats.Length; i++)
