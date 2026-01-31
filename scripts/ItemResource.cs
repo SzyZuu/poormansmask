@@ -1,5 +1,6 @@
 ﻿using System;
 using Godot;
+using Godot.Collections;
 using poormansmask.scripts.enums;
 
 namespace poormansmask.scripts;
@@ -8,7 +9,7 @@ namespace poormansmask.scripts;
 public partial class ItemResource : Resource
 {
     [Export]
-    private float[] _statImprovements = new float[Enum.GetValues(typeof(StatImprovements)).Length];
+    private Dictionary<StatImprovements, float> _statImprovements = new Dictionary<StatImprovements, float>();
     
     [Export]
     private Texture2D _itemSprite;
@@ -22,5 +23,5 @@ public partial class ItemResource : Resource
     [Export]
     private Rarities _itemRarity;
     
-    public float[] GetStatImprovements() =>  _statImprovements;
+    public Dictionary<StatImprovements, float> GetStatImprovements() =>  _statImprovements;
 }

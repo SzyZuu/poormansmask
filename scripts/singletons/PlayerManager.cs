@@ -9,24 +9,19 @@ public partial class PlayerManager : Node, IPickUp
 {
 	private int _currentArmor;
 	private int _currentHealth;
-	
-	float[] _stats = new float[Enum.GetValues(typeof(StatImprovements)).Length];
+
+	Godot.Collections.Dictionary<StatImprovements, float> _stats = new()
+	{
+		[StatImprovements.MAXHEALTH] = 100,
+		[StatImprovements.MAXARMOR] = 10,
+		[StatImprovements.DAMAGEMULTIPLIER] = 1,
+	};
 	private List<ItemResource> _inventory = new List<ItemResource>();
 
 	override public void _Ready()
 	{
-		for (int i = 0; i < _stats.Length; i++)
-		{
-			_stats[i] = (StatImprovements)i switch
-			{
-				StatImprovements.DAMAGEMULTIPLIER => 1,
-				StatImprovements.MAXARMOR => 10,
-				StatImprovements.MAXHEALTH => 10,
-			};
-		}
-		
-		_currentHealth = (int)_stats[(int)StatImprovements.MAXHEALTH];
-		_currentArmor = (int)_stats[(int)StatImprovements.MAXARMOR];
+		_currentHealth = (int)_stats[StatImprovements.MAXHEALTH];
+		_currentArmor = (int)_stats[StatImprovements.MAXARMOR];
 		
 		var timer = new Timer();
 		AddChild(timer);
@@ -50,10 +45,11 @@ public partial class PlayerManager : Node, IPickUp
 	public void ItemPickUp(ItemResource itemResource)
 	{
 		_inventory.Add(itemResource);
-		
-		for (int i = 0; i < Enum.GetValues(typeof(StatImprovements)).Length; i++)
+
+		var statImprovements = itemResource.GetStatImprovements();
+		foreach (var statImprovement in statImprovements)
 		{
-			_stats[i] += itemResource.GetStatImprovements()[i];
+			_stats[statImprovement.Key] += statImprovement.Value;
 		}
 	}
 }
