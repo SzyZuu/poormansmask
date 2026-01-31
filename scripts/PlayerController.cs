@@ -9,6 +9,7 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 	public const float JumpVelocity = -400.0f;
 	private bool _coyoteActive = false;
 	private bool lastFrameFloor = false;
+	private IAmItem _itemInRange;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -52,9 +53,28 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 		MoveAndSlide();
 	}
 
-	public void ItemPickUp(ItemResource itemResource)
+	public override void _Input(InputEvent @event)
+	{
+		if (@event.IsActionPressed("Interact") && _itemInRange != null)
+		{
+			ItemPickUp(_itemInRange);
+		}
+	}
+
+	public void ItemPickUp(IAmItem item)
 	{
 		var playerManager = GetNode<PlayerManager>("/root/PlayerManager");
-		playerManager.AddItem(itemResource);
+		playerManager.AddItem(item.GetItemResource());
+		item.GotPickedUp();
+	}
+
+	public void ItemInRange(IAmItem item)
+	{
+		_itemInRange = item;
+	}
+
+	public void ItemOutOfRange()
+	{
+		_itemInRange = null;
 	}
 }

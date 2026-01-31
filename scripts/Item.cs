@@ -1,8 +1,9 @@
 using Godot;
 using System;
 using poormansmask.scripts;
+using poormansmask.scripts.interfaces;
 
-public partial class Item : Area2D
+public partial class Item : Area2D, IAmItem
 {
 	[Export] public ItemResource ItemData;
 	Node2D _guiContainer;
@@ -13,7 +14,6 @@ public partial class Item : Area2D
 		BodyExited += OnItemExit;
 		
 		_guiContainer = GetNode<Node2D>("ItemInfo");
-		PanelContainer panelContainer = GetNode<PanelContainer>("ItemInfo/PanelContainer");
 		
 		Label itemNameLabel = GetNode<Label>("%ItemName");
 		RichTextLabel itemDescriptionLabel = GetNode<RichTextLabel>("%ItemDesc");
@@ -24,16 +24,29 @@ public partial class Item : Area2D
 
 	private void OnItemEnter(Node2D body)
 	{
-		if (body.HasMethod("ItemPickUp"))
+		if (body is IPickUp pickup)
 		{
 			_guiContainer.Visible = true;
-			//body.Call("ItemPickUp", ItemData);
+			pickup.ItemInRange(this);
 		}
 	}
 
 	private void OnItemExit(Node2D body)
 	{
-		if(body.HasMethod("ItemPickUp"))
+		if(body is IPickUp pickup)
+		{
 			_guiContainer.Visible = false;
+			pickup.ItemOutOfRange();
+		}
+	}
+
+	public ItemResource GetItemResource()
+	{
+		return ItemData;
+	}
+
+	public void GotPickedUp()
+	{
+		QueueFree();
 	}
 }

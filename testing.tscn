@@ -16,6 +16,7 @@ size = Vector2(500, 20)
 size = Vector2(20, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_feb8i"]
+size = Vector2(20.230724, 23)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_feb8i"]
 size = Vector2(20, 20)
@@ -53,6 +54,8 @@ script = ExtResource("2_feb8i")
 ItemData = ExtResource("3_feb8i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Item" unique_id=1837776975]
+position = Vector2(0.16914076, -1.5)
+scale = Vector2(1.4661717, 1)
 shape = SubResource("RectangleShape2D_feb8i")
 
 [node name="Sprite2D" type="Sprite2D" parent="Item" unique_id=1468483233]

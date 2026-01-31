@@ -2,5 +2,6 @@
 
 public interface IPickUp
 {
-    public void ItemPickUp(ItemResource itemResource);
+    public void ItemInRange(IAmItem item);
+    public void ItemOutOfRange();           // for now alwas aat most 1 item in range
 }
