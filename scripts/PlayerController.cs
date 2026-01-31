@@ -9,7 +9,9 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 	public const float JumpVelocity = -400.0f;
 	private bool _coyoteActive = false;
 	private bool lastFrameFloor = false;
+	
 	private IAmItem _itemInRange;
+	private IInventory _inventory;
 
 	public override void _Ready()
 	{
@@ -69,8 +71,7 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 
 	public void ItemPickUp(IAmItem item)
 	{
-		var playerManager = GetNode<PlayerManager>("/root/PlayerManager");
-		playerManager.AddItem(item.GetItemResource());
+		_inventory.AddItem(item.GetItemResource());
 		item.GotPickedUp();
 	}
 
