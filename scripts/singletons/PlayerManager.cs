@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using poormansmask.scripts;
 using poormansmask.scripts.enums;
+using poormansmask.scripts.interfaces;
 
-public partial class PlayerManager : Node
+public partial class PlayerManager : Node, IInventory
 {
 	private int _currentArmor;
 	private int _currentHealth;

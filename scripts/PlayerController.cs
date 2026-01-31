@@ -16,6 +16,7 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 	public override void _Ready()
 	{
 		PlayerManager pm =  GetNode<PlayerManager>("/root/PlayerManager");
+		_inventory = pm;
 		pm.Player = this;
 	}
 	
