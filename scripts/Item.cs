@@ -5,14 +5,15 @@ using poormansmask.scripts;
 public partial class Item : Area2D
 {
 	[Export] public ItemResource ItemData;
-	Control _guiContainer;
+	Node2D _guiContainer;
 
 	override public void _Ready()
 	{
 		BodyEntered += OnItemEnter;
 		BodyExited += OnItemExit;
 		
-		_guiContainer = GetNode<Control>("ItemInfo");
+		_guiContainer = GetNode<Node2D>("ItemInfo");
+		PanelContainer panelContainer = GetNode<PanelContainer>("ItemInfo/PanelContainer");
 		
 		Label itemNameLabel = GetNode<Label>("%ItemName");
 		RichTextLabel itemDescriptionLabel = GetNode<RichTextLabel>("%ItemDesc");
@@ -20,6 +21,8 @@ public partial class Item : Area2D
 		itemNameLabel.Text = ItemData.ItemName;
 		itemDescriptionLabel.Text = ItemData.ItemDescription;
 		
+		//panelContainer.SetSize(GetNode<MarginContainer>("ItemInfo/PanelContainer/MarginContainer").GetGlobalRect().Size, true);
+		//panelContainer.OffsetBottom = 4;		// idk what the fuck is happening
 	}
 
 	private void OnItemEnter(Node2D body)
