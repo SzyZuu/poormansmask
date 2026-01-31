@@ -14,8 +14,8 @@ public partial class Item : Area2D
 		
 		_guiContainer = GetNode<Control>("ItemInfo");
 		
-		Label itemNameLabel = GetNode<Label>("ItemInfo/ItemName");
-		RichTextLabel itemDescriptionLabel = GetNode<RichTextLabel>("ItemInfo/ItemDesc");
+		Label itemNameLabel = GetNode<Label>("%ItemName");
+		RichTextLabel itemDescriptionLabel = GetNode<RichTextLabel>("%ItemDesc");
 		
 		itemNameLabel.Text = ItemData.ItemName;
 		itemDescriptionLabel.Text = ItemData.ItemDescription;
