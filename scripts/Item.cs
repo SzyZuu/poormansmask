@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using poormansmask.scripts;
+using poormansmask.scripts.enums;
 using poormansmask.scripts.interfaces;
 
 public partial class Item : Area2D, IAmItem
@@ -19,7 +20,35 @@ public partial class Item : Area2D, IAmItem
 		RichTextLabel itemDescriptionLabel = GetNode<RichTextLabel>("%ItemDesc");
 		
 		itemNameLabel.Text = ItemData.ItemName;
-		itemDescriptionLabel.Text = ItemData.ItemDescription;
+		itemDescriptionLabel.Text = ItemData.ItemDescription + "\n";
+		
+		AddColoredStats(itemDescriptionLabel);
+	}
+
+	private void AddColoredStats(RichTextLabel label)
+	{
+		foreach (var stat in ItemData.GetStatImprovements())
+		{
+			if (stat.Value < 0)
+			{
+				label.PushColor(new Color("#F54D54"));
+
+				if (stat.Key == StatImprovements.DAMAGEMULTIPLIER)
+				{
+					label.AddText("\n-" + (int)(stat.Value * 100) + StatNameHelper.GetDisplayString(stat.Key));
+				}else
+					label.AddText("\n" + stat.Value + " " + StatNameHelper.GetDisplayString(stat.Key));
+			}else if (stat.Value > 0)
+			{
+				label.PushColor(new Color("#84EB3B"));
+
+				if (stat.Key == StatImprovements.DAMAGEMULTIPLIER)
+				{
+					label.AddText("\n+" + (int)(stat.Value * 100) + StatNameHelper.GetDisplayString(stat.Key));
+				}else
+					label.AddText("\n+" + stat.Value + " " + StatNameHelper.GetDisplayString(stat.Key));
+			}
+		}
 	}
 
 	private void OnItemEnter(Node2D body)
