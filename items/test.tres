@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b54cdnq0l05ki" path="res://scripts/ItemResource.cs" id="1_8w8dx"]
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8w8dx"]
+
 [resource]
 script = ExtResource("1_8w8dx")
 _statImprovements = Dictionary[int, float]({
@@ -9,5 +11,6 @@ _statImprovements = Dictionary[int, float]({
 1: -3.0,
 2: 0.2
 })
+_itemSprite = SubResource("PlaceholderTexture2D_8w8dx")
 _itemName = "Test Item"
 _itemDescription = "ooga booga"

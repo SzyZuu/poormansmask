@@ -76,6 +76,9 @@ public partial class Item : Area2D, IAmItem
 
 	public void GotPickedUp()
 	{
+		GuiManager gui = GetNode<GuiManager>("/root/GuiManager");
+		gui.ItemAdded(ItemData.ItemSprite);
+		
 		QueueFree();
 	}
 }

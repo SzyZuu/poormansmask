@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://ddo0yqh8gxa3w" path="res://scripts/StateMachine/States/WanderingState.cs" id="3_kj3p2"]
 [ext_resource type="Script" uid="uid://cc86heh4sjfhr" path="res://scripts/StateMachine/States/ChaseState.cs" id="4_jn4p2"]
 [ext_resource type="PackedScene" uid="uid://bh0jo3b01i4tv" path="res://item.tscn" id="4_lc7k4"]
+[ext_resource type="Script" uid="uid://d0c7u8r0kbxia" path="res://scripts/Gui.cs" id="6_jn4p2"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_co24e"]
 
@@ -89,3 +90,24 @@ position = Vector2(264.17358, -346.85992)
 [node name="Item" parent="." unique_id=404994092 instance=ExtResource("4_lc7k4")]
 position = Vector2(0, -16)
 ItemData = ExtResource("3_feb8i")
+
+[node name="Item2" parent="." unique_id=1359752741 instance=ExtResource("4_lc7k4")]
+position = Vector2(-200, -18)
+ItemData = ExtResource("3_feb8i")
+
+[node name="GUI" type="CanvasLayer" parent="." unique_id=176900490]
+script = ExtResource("6_jn4p2")
+
+[node name="InventoryGUI" type="Control" parent="GUI" unique_id=802084714]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ItemGrid" type="GridContainer" parent="GUI/InventoryGUI" unique_id=2002798876]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 20.0
+columns = 15
