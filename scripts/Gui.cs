@@ -14,6 +14,9 @@ public partial class Gui : CanvasLayer
 		GridContainer gridContainer = GetNode<GridContainer>("%ItemGrid");
 		TextureRect textureRect = new TextureRect();
 		textureRect.Texture = GD.Load<Texture2D>("res://icon.svg");
+		textureRect.CustomMinimumSize = new(64, 64);
+		textureRect.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
+		textureRect.StretchMode = TextureRect.StretchModeEnum.KeepAspect;
 		
 		gridContainer.AddChild(textureRect);
 	}

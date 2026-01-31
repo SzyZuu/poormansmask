@@ -99,6 +99,8 @@ offset_bottom = 40.0
 
 [node name="ItemGrid" type="GridContainer" parent="GUI/InventoryGUI" unique_id=2002798876]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 20.0
+offset_bottom = 20.0
+columns = 15
