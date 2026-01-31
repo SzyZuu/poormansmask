@@ -1,8 +1,13 @@
 [gd_scene format=3 uid="uid://ildk35bb6hxj"]
 
 [ext_resource type="PackedScene" uid="uid://dwc0pq5f6c5uh" path="res://player.tscn" id="1_qrja6"]
+
 [ext_resource type="Script" uid="uid://de0v7bi06j5nh" path="res://scripts/Item.cs" id="2_feb8i"]
 [ext_resource type="Resource" uid="uid://btr3tq23kqu1w" path="res://items/test.tres" id="3_feb8i"]
+[ext_resource type="Script" uid="uid://ddfviqhwsgw4r" path="res://scripts/StateMachine/StateTree.cs" id="2_feb8i"]
+[ext_resource type="Script" uid="uid://ddo0yqh8gxa3w" path="res://scripts/StateMachine/States/WanderingState.cs" id="3_kj3p2"]
+[ext_resource type="Script" uid="uid://d0nbc4oegxuuh" path="res://items/Item.cs" id="2_co24e"]
+[ext_resource type="Script" uid="uid://b54cdnq0l05ki" path="res://scripts/ItemResource.cs" id="3_feb8i"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_co24e"]
 
@@ -11,6 +16,15 @@ size = Vector2(523, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qrja6"]
 size = Vector2(500, 20)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_co24e"]
+size = Vector2(500, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
+size = Vector2(16, 32)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i3pqv"]
+size = Vector2(16, 32)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_co24e"]
 size = Vector2(20, 20)
@@ -36,6 +50,35 @@ texture = SubResource("PlaceholderTexture2D_qrja6")
 [node name="CharacterBody2D" parent="." unique_id=1203434461 instance=ExtResource("1_qrja6")]
 position = Vector2(264.17358, -346.85992)
 
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=142935359]
+position = Vector2(624, -166)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1314662403]
+shape = SubResource("RectangleShape2D_qrja6")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2" unique_id=1441393820]
+texture = SubResource("PlaceholderTexture2D_co24e")
+
+[node name="CharacterBody2D2" type="CharacterBody2D" parent="." unique_id=225991062]
+position = Vector2(423, -182)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D2" unique_id=1195491603]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_onrkg")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D2" unique_id=1279653671]
+position = Vector2(0, -16)
+texture = SubResource("PlaceholderTexture2D_i3pqv")
+
+[node name="StateTree" type="Node" parent="CharacterBody2D2" unique_id=104708365 node_paths=PackedStringArray("_activeState")]
+script = ExtResource("2_feb8i")
+_activeState = NodePath("WanderingState")
+metadata/_custom_type_script = "uid://ddfviqhwsgw4r"
+
+[node name="WanderingState" type="Node" parent="CharacterBody2D2/StateTree" unique_id=160109987]
+script = ExtResource("3_kj3p2")
+metadata/_custom_type_script = "uid://ddo0yqh8gxa3w"
 [node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=30589430]
 position = Vector2(264.17358, -346.85992)
 

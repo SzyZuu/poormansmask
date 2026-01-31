@@ -17,6 +17,18 @@ public partial class PlayerManager : Node
 	};
 	private List<ItemResource> _inventory = new List<ItemResource>();
 
+	private CharacterBody2D _playerBody;
+
+	[Export]
+	public CharacterBody2D Player
+	{
+		get => _playerBody;
+		set
+		{
+			_playerBody = value;
+		}
+	}
+	
 	override public void _Ready()
 	{
 		_currentHealth = (int)_stats[StatImprovements.MAXHEALTH];

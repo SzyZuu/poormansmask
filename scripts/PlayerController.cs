@@ -11,6 +11,12 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 	private bool lastFrameFloor = false;
 	private IAmItem _itemInRange;
 
+	public override void _Ready()
+	{
+		PlayerManager pm =  GetNode<PlayerManager>("/root/PlayerManager");
+		pm.Player = this;
+	}
+	
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
