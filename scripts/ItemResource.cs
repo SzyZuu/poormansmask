@@ -24,4 +24,8 @@ public partial class ItemResource : Resource
     private Rarities _itemRarity;
     
     public Dictionary<StatImprovements, float> GetStatImprovements() =>  _statImprovements;
+    public String ItemName => _itemName;
+    public String ItemDescription => _itemDescription;
+    public Rarities ItemRarity => _itemRarity;
+    public Texture2D ItemSprite => _itemSprite;
 }

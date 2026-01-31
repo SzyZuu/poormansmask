@@ -1,7 +1,9 @@
 using Godot;
 using System;
+using poormansmask.scripts;
+using poormansmask.scripts.interfaces;
 
-public partial class PlayerController : CharacterBody2D
+public partial class PlayerController : CharacterBody2D, IPickUp
 {
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
@@ -48,5 +50,11 @@ public partial class PlayerController : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	public void ItemPickUp(ItemResource itemResource)
+	{
+		var playerManager = GetNode<PlayerManager>("/root/PlayerManager");
+		playerManager.AddItem(itemResource);
 	}
 }

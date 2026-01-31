@@ -3,9 +3,8 @@ using System;
 using System.Collections.Generic;
 using poormansmask.scripts;
 using poormansmask.scripts.enums;
-using poormansmask.scripts.interfaces;
 
-public partial class PlayerManager : Node, IPickUp
+public partial class PlayerManager : Node
 {
 	private int _currentArmor;
 	private int _currentHealth;
@@ -42,7 +41,7 @@ public partial class PlayerManager : Node, IPickUp
 		return dealtArmor + dealtHealth;
 	}
 
-	public void ItemPickUp(ItemResource itemResource)
+	public void AddItem(ItemResource itemResource)
 	{
 		_inventory.Add(itemResource);
 
