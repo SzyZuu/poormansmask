@@ -1,12 +1,15 @@
 using Godot;
 using System;
+using poormansmask.scripts;
+using poormansmask.scripts.interfaces;
 
-public partial class PlayerController : CharacterBody2D
+public partial class PlayerController : CharacterBody2D, IPickUp
 {
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
 	private bool _coyoteActive = false;
 	private bool lastFrameFloor = false;
+	private IAmItem _itemInRange;
 
 	public override void _Ready()
 	{
@@ -54,5 +57,30 @@ public partial class PlayerController : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (@event.IsActionPressed("Interact") && _itemInRange != null)
+		{
+			ItemPickUp(_itemInRange);
+		}
+	}
+
+	public void ItemPickUp(IAmItem item)
+	{
+		var playerManager = GetNode<PlayerManager>("/root/PlayerManager");
+		playerManager.AddItem(item.GetItemResource());
+		item.GotPickedUp();
+	}
+
+	public void ItemInRange(IAmItem item)
+	{
+		_itemInRange = item;
+	}
+
+	public void ItemOutOfRange()
+	{
+		_itemInRange = null;
 	}
 }

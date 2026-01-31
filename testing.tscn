@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://ildk35bb6hxj"]
 
 [ext_resource type="PackedScene" uid="uid://dwc0pq5f6c5uh" path="res://player.tscn" id="1_qrja6"]
+
+[ext_resource type="Script" uid="uid://de0v7bi06j5nh" path="res://scripts/Item.cs" id="2_feb8i"]
+[ext_resource type="Resource" uid="uid://btr3tq23kqu1w" path="res://items/test.tres" id="3_feb8i"]
 [ext_resource type="Script" uid="uid://ddfviqhwsgw4r" path="res://scripts/StateMachine/StateTree.cs" id="2_feb8i"]
 [ext_resource type="Script" uid="uid://ddo0yqh8gxa3w" path="res://scripts/StateMachine/States/WanderingState.cs" id="3_kj3p2"]
 [ext_resource type="Script" uid="uid://d0nbc4oegxuuh" path="res://items/Item.cs" id="2_co24e"]
@@ -26,10 +29,11 @@ size = Vector2(16, 32)
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_co24e"]
 size = Vector2(20, 20)
 
-[sub_resource type="Resource" id="Resource_kj3p2"]
-script = ExtResource("3_feb8i")
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_feb8i"]
+size = Vector2(20.230724, 23)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_feb8i"]
+size = Vector2(20, 20)
 
 [node name="Testing" type="Node2D" unique_id=509027212]
 
@@ -86,9 +90,57 @@ shape = SubResource("RectangleShape2D_qrja6")
 position = Vector2(-240.17358, 288.85992)
 texture = SubResource("PlaceholderTexture2D_co24e")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=734037345]
-script = ExtResource("2_co24e")
-itemData = SubResource("Resource_kj3p2")
+[node name="Item" type="Area2D" parent="." unique_id=734037345]
+position = Vector2(0, -16)
+collision_mask = 2
+script = ExtResource("2_feb8i")
+ItemData = ExtResource("3_feb8i")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1837776975]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Item" unique_id=1837776975]
+position = Vector2(0.16914076, -1.5)
+scale = Vector2(1.4661717, 1)
 shape = SubResource("RectangleShape2D_feb8i")
+
+[node name="Sprite2D" type="Sprite2D" parent="Item" unique_id=1468483233]
+texture = SubResource("PlaceholderTexture2D_feb8i")
+
+[node name="ItemInfo" type="Node2D" parent="Item" unique_id=1388371970]
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="Item/ItemInfo" unique_id=778299811]
+custom_minimum_size = Vector2(160.521, 0)
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 67.0
+offset_bottom = 51.0
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Item/ItemInfo/PanelContainer" unique_id=1791447750]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Item/ItemInfo/PanelContainer/MarginContainer" unique_id=973543721]
+layout_mode = 2
+
+[node name="ItemName" type="Label" parent="Item/ItemInfo/PanelContainer/MarginContainer/VBoxContainer" unique_id=776497617]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "The size"
+
+[node name="ItemDesc" type="RichTextLabel" parent="Item/ItemInfo/PanelContainer/MarginContainer/VBoxContainer" unique_id=1892487452]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 16
+theme_override_font_sizes/bold_italics_font_size = 16
+theme_override_font_sizes/italics_font_size = 16
+theme_override_font_sizes/mono_font_size = 16
+text = "also the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the size"
+fit_content = true
+scroll_active = false
