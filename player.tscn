@@ -9,6 +9,7 @@ size = Vector2(16, 32)
 size = Vector2(16, 32)
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1203434461]
+collision_layer = 2
 script = ExtResource("1_4flbx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2143798475]

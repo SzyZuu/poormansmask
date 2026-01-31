@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://dwc0pq5f6c5uh" path="res://player.tscn" id="1_qrja6"]
 [ext_resource type="Script" uid="uid://de0v7bi06j5nh" path="res://scripts/Item.cs" id="2_feb8i"]
-[ext_resource type="Resource" uid="uid://btr3tq23kqu1w" path="res://items/test.tres" id="3_feb8i"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_co24e"]
 
@@ -50,7 +49,6 @@ texture = SubResource("PlaceholderTexture2D_co24e")
 position = Vector2(0, -16)
 collision_mask = 2
 script = ExtResource("2_feb8i")
-itemData = ExtResource("3_feb8i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Item" unique_id=1837776975]
 shape = SubResource("RectangleShape2D_feb8i")
