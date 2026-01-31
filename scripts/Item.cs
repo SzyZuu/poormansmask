@@ -20,9 +20,6 @@ public partial class Item : Area2D
 		
 		itemNameLabel.Text = ItemData.ItemName;
 		itemDescriptionLabel.Text = ItemData.ItemDescription;
-		
-		//panelContainer.SetSize(GetNode<MarginContainer>("ItemInfo/PanelContainer/MarginContainer").GetGlobalRect().Size, true);
-		//panelContainer.OffsetBottom = 4;		// idk what the fuck is happening
 	}
 
 	private void OnItemEnter(Node2D body)
