@@ -20,8 +20,13 @@ public partial class StateTree : Node
 	{
 		if (_activeState != null && IsInstanceValid(_activeState))
 		{
-			_activeState.Process();
+			_activeState.Process((float)delta);
 		}
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		_activeState.PhysicsProcess((float)delta);
 	}
 	
 	public void ChangeState(StateBase newState)
