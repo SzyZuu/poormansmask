@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://bh0jo3b01i4tv"]
+
+[ext_resource type="Script" uid="uid://de0v7bi06j5nh" path="res://scripts/Item.cs" id="1_ttk8k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_feb8i"]
+size = Vector2(20.230724, 23)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_feb8i"]
+size = Vector2(20, 20)
+
+[node name="Item" type="Area2D" unique_id=404994092]
+collision_mask = 2
+script = ExtResource("1_ttk8k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1541450362]
+position = Vector2(0.16914076, -1.5)
+scale = Vector2(1.4661717, 1)
+shape = SubResource("RectangleShape2D_feb8i")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=688318166]
+texture = SubResource("PlaceholderTexture2D_feb8i")
+
+[node name="ItemInfo" type="Node2D" parent="." unique_id=921737453]
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="ItemInfo" unique_id=1598724125]
+custom_minimum_size = Vector2(160.521, 0)
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 67.0
+offset_bottom = 51.0
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="ItemInfo/PanelContainer" unique_id=849274643]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ItemInfo/PanelContainer/MarginContainer" unique_id=1167629982]
+layout_mode = 2
+
+[node name="ItemName" type="Label" parent="ItemInfo/PanelContainer/MarginContainer/VBoxContainer" unique_id=2039849715]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "The size"
+
+[node name="ItemDesc" type="RichTextLabel" parent="ItemInfo/PanelContainer/MarginContainer/VBoxContainer" unique_id=205763589]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 16
+theme_override_font_sizes/bold_italics_font_size = 16
+theme_override_font_sizes/italics_font_size = 16
+theme_override_font_sizes/mono_font_size = 16
+text = "also the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the sizealso the size"
+fit_content = true
+scroll_active = false
