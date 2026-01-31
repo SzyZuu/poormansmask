@@ -59,23 +59,39 @@ shape = SubResource("RectangleShape2D_feb8i")
 texture = SubResource("PlaceholderTexture2D_feb8i")
 
 [node name="ItemInfo" type="Control" parent="Item" unique_id=135382290]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 
-[node name="ItemName" type="Label" parent="Item/ItemInfo" unique_id=776497617]
+[node name="PanelContainer" type="PanelContainer" parent="Item/ItemInfo" unique_id=778299811]
 layout_mode = 0
-offset_left = -12.0
-offset_top = -95.0
-offset_right = 28.0
-offset_bottom = -72.0
-scale = Vector2(1.3127148, 1.3127148)
-text = "Test"
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 156.0
+offset_bottom = 211.0
 
-[node name="ItemDesc" type="RichTextLabel" parent="Item/ItemInfo" unique_id=1892487452]
-layout_mode = 0
-offset_left = -9.0
-offset_top = -64.0
-offset_right = 100.054
-offset_bottom = 31.884003
-text = "dfsgdgdsfgs"
+[node name="MarginContainer" type="MarginContainer" parent="Item/ItemInfo/PanelContainer" unique_id=1791447750]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Item/ItemInfo/PanelContainer/MarginContainer" unique_id=973543721]
+layout_mode = 2
+
+[node name="ItemName" type="Label" parent="Item/ItemInfo/PanelContainer/MarginContainer/VBoxContainer" unique_id=776497617]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "The great stick of sticking"
+
+[node name="ItemDesc" type="RichTextLabel" parent="Item/ItemInfo/PanelContainer/MarginContainer/VBoxContainer" unique_id=1892487452]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 16
+theme_override_font_sizes/bold_italics_font_size = 16
+theme_override_font_sizes/italics_font_size = 16
+theme_override_font_sizes/mono_font_size = 16
+text = "dfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgsdfsgdgdsfgs"
+fit_content = true
+scroll_following = true
