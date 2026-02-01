@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://c3vii3fbb6600"]
+
+[ext_resource type="Script" uid="uid://dddbg5txc5djo" path="res://scripts/Bullet.cs" id="1_mkf8s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mkf8s"]
+radius = 4.0
+
+[sub_resource type="Gradient" id="Gradient_mkf8s"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 0, 0.34901962, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y25gk"]
+gradient = SubResource("Gradient_mkf8s")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.2, 0.2)
+
+[node name="Bullet" type="Area2D" unique_id=700932247]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_mkf8s")
+metadata/_custom_type_script = "uid://dddbg5txc5djo"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=69631819]
+shape = SubResource("CircleShape2D_mkf8s")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1600010674]
+texture = SubResource("GradientTexture2D_y25gk")

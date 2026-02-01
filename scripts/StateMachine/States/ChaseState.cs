@@ -43,7 +43,6 @@ public partial class ChaseState : StateBase
 			_player = pm.Player;
 			if (!IsInstanceValid(Player))
 			{
-				GD.Print("We are cooked GNG");
 				return;
 			}
 		}
@@ -52,7 +51,6 @@ public partial class ChaseState : StateBase
 
 		if (!IsInstanceValid(owner))
 		{
-			GD.Print("FUCK");
 			return;}
 
 		int count = 0;
@@ -78,13 +76,14 @@ public partial class ChaseState : StateBase
 
 		if (Player.GlobalPosition.DistanceTo(owner.GlobalPosition) > _distanceOutOfBounds)
 		{
-			GD.Print("Out of bounds");
 			OwnerTree.ChangeState(_stateOutOfBounds);
 		}
 
 		if (count < 1)
 		{
-			GD.Print("Reached");
+			Vector2 vel = new(0, owner.Velocity.Y);
+			if (_flying) vel.Y = 0;
+			owner.Velocity = vel;
 			OwnerTree.ChangeState(_stateDistanceReached);
 		}		
 		

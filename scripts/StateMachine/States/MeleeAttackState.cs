@@ -7,7 +7,7 @@ public partial class MeleeAttackState : StateBase
 	[Export] private Area2D _damageArea;
 	[Export] private Sprite2D _hitboxAreaVisualizer;
 	[Export] private float _attackDuration = 1.5f;
-	[Export] private int _damage = 2;
+	[Export] private int _damage = 3;
 
 	[Export] private StateBase _statePostAttack;
 	
@@ -16,7 +16,7 @@ public partial class MeleeAttackState : StateBase
 		_hitboxAreaVisualizer.Show();
 		_damageArea.CollisionMask = 2;
 		var tween = GetTree().CreateTween();
-		tween.SetEase(Tween.EaseType.In);
+		tween.SetEase(Tween.EaseType.Out);
 		tween.SetTrans(Tween.TransitionType.Quart);
 		var colorFrom = new Color(1f, .1f, .1f, 0f);
 		var colorTo = new Color(1f, .1f, .1f);
