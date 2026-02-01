@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using poormansmask.scripts;
 using poormansmask.scripts.enums;
 using poormansmask.scripts.interfaces;
+using poormansmask.scripts.repositories;
 
 public partial class PlayerManager : Node, IInventory
 {
@@ -16,9 +17,12 @@ public partial class PlayerManager : Node, IInventory
 		[StatImprovements.MAXARMOR] = 10,
 		[StatImprovements.DAMAGEMULTIPLIER] = 1,
 	};
+	
 	private List<ItemResource> _inventory = new List<ItemResource>();
+	private AbilityRepository _abilityRepository = new AbilityRepository();
 
 	private CharacterBody2D _playerBody;
+	//private CharacterBody2D _body2D;
 
 	[Export]
 	public CharacterBody2D Player
@@ -63,5 +67,14 @@ public partial class PlayerManager : Node, IInventory
 		{
 			_stats[statImprovement.Key] += statImprovement.Value;
 		}
+	}
+
+	public void ActivateAbility(Abilities abilityToActivate)
+	{
+		IAbility ability = _abilityRepository.GetAbility(abilityToActivate);
+
+		PlayerController pc = _playerBody as PlayerController;
+		ability.Activate(pc);
+		pc.AbilityAdded(ability);
 	}
 }

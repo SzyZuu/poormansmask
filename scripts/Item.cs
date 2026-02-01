@@ -85,7 +85,13 @@ public partial class Item : Area2D, IAmItem
 	public void GotPickedUp()
 	{
 		GuiManager gui = GetNode<GuiManager>("/root/GuiManager");
+		PlayerManager pm = GetNode<PlayerManager>("/root/PlayerManager");
+		
 		gui.ItemAdded(ItemData.ItemSprite);
+
+		Abilities ability = ItemData.GetAbility();
+		if (ability != Abilities.NONE)
+			pm.ActivateAbility(ability);
 		
 		QueueFree();
 	}
