@@ -8,6 +8,9 @@ size = Vector2(16, 32)
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i3pqv"]
 size = Vector2(16, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4flbx"]
+size = Vector2(22, 32)
+
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1203434461]
 collision_layer = 2
 script = ExtResource("1_4flbx")
@@ -28,3 +31,11 @@ drag_left_margin = 0.1
 drag_top_margin = 0.1
 drag_right_margin = 0.1
 drag_bottom_margin = 0.1
+
+[node name="MeleeRange" type="Area2D" parent="." unique_id=321367144]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange" unique_id=2004365987]
+position = Vector2(14, 0)
+shape = SubResource("RectangleShape2D_4flbx")
