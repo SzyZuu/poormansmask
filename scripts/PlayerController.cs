@@ -7,6 +7,7 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 {
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
+	private int _jumps = 2;
 	private bool _coyoteActive = false;
 	private bool lastFrameFloor = false;
 	
@@ -38,12 +39,16 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 			velocity += GetGravity() * (float)delta;
 			lastFrameFloor = false;
 		}else
+		{
 			lastFrameFloor = true;
+			_jumps = 2;
+		}
 
 		// Handle Jump.
-		if (Input.IsActionJustPressed("jump") && (IsOnFloor() || _coyoteActive))
+		if (Input.IsActionJustPressed("jump") && (IsOnFloor() || _coyoteActive || _jumps > 0))
 		{
 			velocity.Y = JumpVelocity;
+			_jumps--;
 		}
 
 		// Get the input direction and handle the movement/deceleration.
