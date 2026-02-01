@@ -23,6 +23,8 @@ public partial class Item : Area2D, IAmItem
 		itemDescriptionLabel.Text = ItemData.ItemDescription + "\n";
 		
 		AddColoredStats(itemDescriptionLabel);
+		itemDescriptionLabel.AddText("\n");
+		AddAbilityDesc(itemDescriptionLabel);
 	}
 
 	private void AddColoredStats(RichTextLabel label)
@@ -51,6 +53,12 @@ public partial class Item : Area2D, IAmItem
 		}
 	}
 
+	private void AddAbilityDesc(RichTextLabel label)
+	{
+		label.PushColor(new Color("#F5F0B3"));
+		label.AddText("\n" + AbilityDescHelper.GetAbilityDesc(ItemData.GetAbility()));
+	}
+
 	private void OnItemEnter(Node2D body)
 	{
 		if (body is IPickUp pickup)
@@ -77,7 +85,16 @@ public partial class Item : Area2D, IAmItem
 	public void GotPickedUp()
 	{
 		GuiManager gui = GetNode<GuiManager>("/root/GuiManager");
-		gui.ItemAdded(ItemData.ItemSprite);
+		PlayerManager pm = GetNode<PlayerManager>("/root/PlayerManager");
+
+		if (ItemData.GetAbility() == Abilities.NONE)
+			gui.ItemAdded(ItemData.ItemSprite);
+		else
+			gui.AbilityAdded(ItemData.ItemSprite);
+
+		Abilities ability = ItemData.GetAbility();
+		if (ability != Abilities.NONE)
+			pm.ActivateAbility(ability);
 		
 		QueueFree();
 	}

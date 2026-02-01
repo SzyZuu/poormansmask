@@ -7,6 +7,11 @@ public partial class GuiManager : Node
 
 	public void ItemAdded(Texture2D item)
 	{
-		Gui.AddItemIcon(item);
+		Gui.AddItemIcon(item, "%ItemGrid");
+	}
+
+	public void AbilityAdded(Texture2D item)
+	{
+		Gui.AddItemIcon(item, "%AbilityGrid");
 	}
 }
