@@ -3,6 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://s6sfiyw6keim" path="res://assets/Pixel2DCastle1.1/walls.png" id="1_ueh2g"]
 [ext_resource type="Texture2D" uid="uid://dcn556a6jb43d" path="res://assets/Pixel2DCastle1.1/ground.png" id="2_ui0nm"]
 [ext_resource type="PackedScene" uid="uid://dwc0pq5f6c5uh" path="res://player.tscn" id="3_4onyc"]
+[ext_resource type="PackedScene" uid="uid://h3nefumofaq0" path="res://scenes/melee.tscn" id="4_ln02x"]
+[ext_resource type="PackedScene" uid="uid://ciju8b75t5p84" path="res://scenes/ranged.tscn" id="5_td0n5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4onyc"]
 texture = ExtResource("1_ueh2g")
@@ -1345,6 +1347,18 @@ tile_set = SubResource("TileSet_td0n5")
 
 [node name="Entities" type="Node2D" parent="." unique_id=562042621]
 
+[node name="CharacterBody2D" parent="Entities" unique_id=1203434461 instance=ExtResource("3_4onyc")]
+position = Vector2(24, -41)
+
+[node name="Ranged" parent="Entities" unique_id=1111393012 instance=ExtResource("4_ln02x")]
+position = Vector2(185, -22)
+
+[node name="Ranged2" parent="Entities" unique_id=1531971435 instance=ExtResource("4_ln02x")]
+position = Vector2(205, -111)
+
+[node name="Ranged3" parent="Entities" unique_id=1099039719 instance=ExtResource("5_td0n5")]
+position = Vector2(310, -91)
+
 [node name="TileMapLayer3" type="TileMapLayer" parent="." unique_id=802105516]
 tile_map_data = PackedByteArray("AAASAPb/AAAHAAAAAAATAPb/AAAIAAAAAAATAPf/AAAIAAEAAAAUAPb/AAAJAAAAAAAUAPf/AAAJAAEAAAAUAPj/AAAJAAIAAAAAAPb/AAAAAAAAAAAAAPf/AAAAAAEAAAAAAPj/AAAAAAIAAAABAPb/AAABAAAAAAABAPf/AAABAAEAAAABAPj/AAABAAIAAAACAPb/AAACAAAAAAACAPf/AAACAAEAAAACAPj/AAACAAIAAAD///b/AAAAAAkAAAD///f/AAAAAAoAAAD///j/AAAAAAsAAAD///r/AAAAAAoAAAD///v/AAAAAAsAAAD///z/AAAAAAkAAAD///n/AAAAAAkAAAD/////AAAAAAsAAAD//wAAAAAAAAwAAAAVAPb/AAAJAAkAAAAVAPf/AAAJAAoAAAAVAPj/AAAJAAsAAAAVAPn/AAAJAAkAAAAVAPr/AAAJAAoAAAAVAPv/AAAJAAsAAAAVAPz/AAAJAAkAAAAVAP3/AAAJAAoAAAAVAP7/AAAIAAoAAAAVAP//AAAIAAsAAAAVAAAAAAAIAAwAAAAAAPn/AAABAAkAAAAAAPr/AAABAAoAAAABAPn/AAACAAkAAAABAPr/AAACAAoAAAAAAPv/AAACAAoAAAAAAP//AAACAAsAAAAAAPz/AAACAAAAAAAAAAAAAAADAAwAAAABAAAAAAAEAAwAAAACAAAAAAAFAAwAAAADAAAAAAAGAAwAAAAEAAAAAAADAAwAAAAFAAAAAAAEAAwAAAAGAAAAAAAFAAwAAAAHAAAAAAADAAwAAAAIAAAAAAAEAAwAAAAJAAAAAAAFAAwAAAAKAAAAAAADAAwAAAAMAAAAAAAFAAwAAAANAAAAAAAGAAwAAAAOAAAAAAAFAAwAAAAPAAAAAAADAAwAAAALAAAAAAAEAAwAAAAQAAAAAAAEAAwAAAARAAAAAAAFAAwAAAASAAAAAAAGAAwAAAD///3/AAAAAAoAAAD///7/AAAAAAkAAAAUAPz/AAAHAAAAAAATAPv/AAAHAAIAAAAUAPn/AAAIAAAAAAAUAPr/AAAIAAEAAAAUAPv/AAAIAAIAAAATAAAAAAAGAAwAAAAUAP//AAAHAAsAAAAUAAAAAAAHAAwAAAATAPj/AAAHAAEAAAATAPn/AAAHAAIAAAA=")
 tile_set = SubResource("TileSet_5cp5c")
@@ -1363,6 +1377,3 @@ shape = SubResource("RectangleShape2D_ui0nm")
 position = Vector2(167, -163)
 rotation = -1.5707964
 shape = SubResource("RectangleShape2D_4onyc")
-
-[node name="CharacterBody2D" parent="." unique_id=1203434461 instance=ExtResource("3_4onyc")]
-position = Vector2(24, -41)
