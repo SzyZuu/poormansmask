@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://ddo0yqh8gxa3w" path="res://scripts/StateMachine/States/WanderingState.cs" id="3_kj3p2"]
 [ext_resource type="Script" uid="uid://cc86heh4sjfhr" path="res://scripts/StateMachine/States/ChaseState.cs" id="4_jn4p2"]
 [ext_resource type="PackedScene" uid="uid://bh0jo3b01i4tv" path="res://item.tscn" id="4_lc7k4"]
+[ext_resource type="Script" uid="uid://bcytqhavb3c4a" path="res://scripts/StateMachine/States/MeleeAttackState.cs" id="5_11ixh"]
 [ext_resource type="Script" uid="uid://d0c7u8r0kbxia" path="res://scripts/Gui.cs" id="6_jn4p2"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_co24e"]
@@ -17,13 +18,30 @@ size = Vector2(523, 1)
 size = Vector2(500, 20)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_co24e"]
-size = Vector2(20, 20)
+size = Vector2(500, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
 size = Vector2(16, 32)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i3pqv"]
 size = Vector2(16, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_11ixh"]
+size = Vector2(50, 20)
+
+[sub_resource type="Gradient" id="Gradient_11ixh"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_w078t"]
+fractal_octaves = 10
+fractal_weighted_strength = 0.3
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_20t1u"]
+width = 50
+height = 20
+noise = SubResource("FastNoiseLite_w078t")
+color_ramp = SubResource("Gradient_11ixh")
 
 [node name="Testing" type="Node2D" unique_id=509027212]
 
@@ -38,7 +56,7 @@ scale = Vector2(27.36, 1)
 texture = SubResource("PlaceholderTexture2D_qrja6")
 
 [node name="CharacterBody2D" parent="." unique_id=1203434461 instance=ExtResource("1_qrja6")]
-position = Vector2(264.17358, -346.85992)
+position = Vector2(564, -245)
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=142935359]
 position = Vector2(624, -166)
@@ -69,6 +87,12 @@ shape = SubResource("RectangleShape2D_onrkg")
 position = Vector2(0, -16)
 texture = SubResource("PlaceholderTexture2D_i3pqv")
 
+[node name="Area2D" type="Area2D" parent="CharacterBody2D2" unique_id=1974723738]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D2/Area2D" unique_id=1739707199]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_11ixh")
+
 [node name="StateTree" type="Node" parent="CharacterBody2D2" unique_id=104708365 node_paths=PackedStringArray("_activeState")]
 script = ExtResource("2_feb8i")
 _activeState = NodePath("WanderingState")
@@ -81,8 +105,23 @@ metadata/_custom_type_script = "uid://ddo0yqh8gxa3w"
 
 [node name="ChaseState" type="Node" parent="CharacterBody2D2/StateTree/WanderingState" unique_id=683867010 node_paths=PackedStringArray("_stateDistanceReached", "_stateOutOfBounds")]
 script = ExtResource("4_jn4p2")
-_stateDistanceReached = NodePath("..")
+_targetDistance = Vector2(30, 0)
+_stateDistanceReached = NodePath("MeleeAttackState")
 _stateOutOfBounds = NodePath("..")
+
+[node name="MeleeAttackState" type="Node" parent="CharacterBody2D2/StateTree/WanderingState/ChaseState" unique_id=2016903246 node_paths=PackedStringArray("_damageArea", "_hitboxAreaVisualizer", "_statePostAttack")]
+script = ExtResource("5_11ixh")
+_damageArea = NodePath("../../../../Area2D")
+_hitboxAreaVisualizer = NodePath("../../../../Sprite2D2")
+_attackDuration = 1.0
+_damage = 20
+_statePostAttack = NodePath("..")
+metadata/_custom_type_script = "uid://bcytqhavb3c4a"
+
+[node name="Sprite2D2" type="Sprite2D" parent="CharacterBody2D2" unique_id=989683080]
+visible = false
+position = Vector2(0, -13)
+texture = SubResource("NoiseTexture2D_20t1u")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="." unique_id=30589430]
 position = Vector2(264.17358, -346.85992)
