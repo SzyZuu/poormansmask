@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://ciju8b75t5p84"]
+
+[ext_resource type="Script" uid="uid://ddfviqhwsgw4r" path="res://scripts/StateMachine/StateTree.cs" id="1_8akpr"]
+[ext_resource type="Script" uid="uid://ddo0yqh8gxa3w" path="res://scripts/StateMachine/States/WanderingState.cs" id="2_afsbx"]
+[ext_resource type="Script" uid="uid://r51ntmqf0osk" path="res://scripts/StateMachine/States/KeepDistanceState.cs" id="3_mcfec"]
+[ext_resource type="Script" uid="uid://caacm4scdbh5" path="res://scripts/StateMachine/States/ShootState.cs" id="4_f1u7b"]
+[ext_resource type="PackedScene" uid="uid://c3vii3fbb6600" path="res://scenes/bullet.tscn" id="5_0djpx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
+size = Vector2(16, 32)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i3pqv"]
+size = Vector2(16, 32)
+
+[node name="Ranged" type="CharacterBody2D" unique_id=1111393012]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1890628769]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_onrkg")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1968747732]
+position = Vector2(0, -16)
+texture = SubResource("PlaceholderTexture2D_i3pqv")
+
+[node name="BulletSpawn" type="Node2D" parent="." unique_id=871495617]
+position = Vector2(0, -13)
+
+[node name="StateTree" type="Node" parent="." unique_id=2031222990 node_paths=PackedStringArray("_activeState")]
+script = ExtResource("1_8akpr")
+_activeState = NodePath("WanderingState")
+metadata/_custom_type_script = "uid://ddfviqhwsgw4r"
+
+[node name="WanderingState" type="Node" parent="StateTree" unique_id=803396497 node_paths=PackedStringArray("_stateOnPlayerDetect")]
+script = ExtResource("2_afsbx")
+_stateOnPlayerDetect = NodePath("KeepDistanceState")
+metadata/_custom_type_script = "uid://ddo0yqh8gxa3w"
+
+[node name="KeepDistanceState" type="Node" parent="StateTree/WanderingState" unique_id=947190815 node_paths=PackedStringArray("_stateTooFar", "_stateTimerExpired")]
+script = ExtResource("3_mcfec")
+_flyingSpeed = 150.0
+_minDistance = 250.0
+_maxDistance = 400.0
+_rangeTimerDuration = 2.0
+_stateTooFar = NodePath("..")
+_stateTimerExpired = NodePath("ShootState")
+metadata/_custom_type_script = "uid://r51ntmqf0osk"
+
+[node name="ShootState" type="Node" parent="StateTree/WanderingState/KeepDistanceState" unique_id=1660903466 node_paths=PackedStringArray("_bulletSpawnPoint", "_statePostShoot")]
+script = ExtResource("4_f1u7b")
+_bulletScene = ExtResource("5_0djpx")
+_bulletSpawnPoint = NodePath("../../../../BulletSpawn")
+_bulletSpeed = 600.0
+_statePostShoot = NodePath("..")
+metadata/_custom_type_script = "uid://caacm4scdbh5"

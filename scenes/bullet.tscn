@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dddbg5txc5djo" path="res://scripts/Bullet.cs" id="1_mkf8s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mkf8s"]
-radius = 4.0
+radius = 6.0
 
 [sub_resource type="Gradient" id="Gradient_mkf8s"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 0, 0.34901962, 0)
@@ -16,8 +16,18 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.2, 0.2)
 
+[sub_resource type="Gradient" id="Gradient_l5glv"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.1626506, 0.26506025)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.30980393, 0, 0.27058825, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_eoqba"]
+gradient = SubResource("Gradient_l5glv")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0)
+
 [node name="Bullet" type="Area2D" unique_id=700932247]
-collision_layer = 0
 collision_mask = 3
 script = ExtResource("1_mkf8s")
 metadata/_custom_type_script = "uid://dddbg5txc5djo"
@@ -27,3 +37,36 @@ shape = SubResource("CircleShape2D_mkf8s")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1600010674]
 texture = SubResource("GradientTexture2D_y25gk")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1107455138]
+amount = 24
+texture = SubResource("GradientTexture2D_eoqba")
+lifetime = 5.0
+explosiveness = 1.0
+local_coords = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 35.0
+initial_velocity_max = 43.95
+orbit_velocity_min = 1.5
+orbit_velocity_max = 2.0
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+
+[node name="ParticlesCollision" type="CPUParticles2D" parent="." unique_id=695952859]
+unique_name_in_owner = true
+emitting = false
+amount = 32
+texture = SubResource("GradientTexture2D_eoqba")
+lifetime = 0.3
+one_shot = true
+explosiveness = 0.85
+local_coords = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 220.0
+damping_min = 4.95
+damping_max = 12.871
+scale_amount_min = 0.1
+scale_amount_max = 0.1

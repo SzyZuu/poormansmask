@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 [GlobalClass]
-public partial class ShootBulletState : StateBase
+public partial class ShootState : StateBase
 {
     [Export] private PackedScene _bulletScene;
     [Export] private Node2D _bulletSpawnPoint;

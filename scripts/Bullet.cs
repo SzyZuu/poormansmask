@@ -11,7 +11,9 @@ public partial class Bullet : Area2D
     public override void _Ready()
     {
         // Auto-destroy after lifetime
-        GetTree().CreateTimer(_lifetime).Timeout += QueueFree;
+        GetTree().CreateTimer(_lifetime).Timeout += Destroy;
+        
+        BodyEntered += OnBodyEntered;
     }
 	
     public override void _PhysicsProcess(double delta)
@@ -21,13 +23,30 @@ public partial class Bullet : Area2D
         Position += Velocity * (float)delta;
     }
 	
-    public void _on_body_entered(Node2D body)
+    // Renamed to match signal convention + fixed logic
+    private void OnBodyEntered(Node2D body)
     {
+        GD.Print($"Bullet hit: {body.Name}"); // Debug
+        
         var pm = GetNode("/root/PlayerManager") as PlayerManager;
         if (body == pm?.Player)
         {
+            GD.Print($"Damaging player for {_damage}"); // Debug
             pm.Damage(_damage);
-            QueueFree();
         }
+
+        Destroy();
+    }
+
+    void Destroy()
+    {
+        var pc = GetNode("%ParticlesCollision") as CpuParticles2D;
+        if (pc != null)
+        {
+            pc.Reparent(GetParent());
+            pc.Restart();
+            pc.Finished += pc.QueueFree;
+        }
+        QueueFree();
     }
 }

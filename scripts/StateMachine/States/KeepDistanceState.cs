@@ -26,8 +26,9 @@ public partial class KeepDistanceState : StateBase
 	[Export] private float _speed = 150f;
 	[Export] private bool _flying;
 	[Export] private float _flyingSpeed;
-	
+
 	[ExportGroup("Distance Settings")]
+	[Export] private float _distanceTooClose = 30;
 	[Export] private float _minDistance = 100f;
 	[Export] private float _maxDistance = 200f;
 
@@ -94,6 +95,16 @@ public partial class KeepDistanceState : StateBase
 			var direction = (Player.GlobalPosition - owner.GlobalPosition).Normalized();
 			Vector2 vel = new(direction.X * _speed, owner.Velocity.Y);
 			owner.Velocity = vel;
+		}
+		else if (currentDistance < _distanceTooClose)
+		{
+			if (IsInstanceValid(_stateTooClose))
+			{
+				Vector2 vel = new(0, owner.Velocity.Y);
+				if (_flying) vel.Y = 0;
+				owner.Velocity = vel;
+				OwnerTree.ChangeState(_stateTooClose);
+			}
 		}
 		// Too close - move away from player
 		else if (currentDistance < _minDistance)
