@@ -86,8 +86,11 @@ public partial class Item : Area2D, IAmItem
 	{
 		GuiManager gui = GetNode<GuiManager>("/root/GuiManager");
 		PlayerManager pm = GetNode<PlayerManager>("/root/PlayerManager");
-		
-		gui.ItemAdded(ItemData.ItemSprite);
+
+		if (ItemData.GetAbility() == Abilities.NONE)
+			gui.ItemAdded(ItemData.ItemSprite);
+		else
+			gui.AbilityAdded(ItemData.ItemSprite);
 
 		Abilities ability = ItemData.GetAbility();
 		if (ability != Abilities.NONE)

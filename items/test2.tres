@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://c73firop3t1n8"]
+
+[ext_resource type="Script" uid="uid://b54cdnq0l05ki" path="res://scripts/ItemResource.cs" id="1_b4aeq"]
+
+[resource]
+script = ExtResource("1_b4aeq")
+_itemName = "Not ooga"
+_itemDescription = "very booga"
+metadata/_custom_type_script = "uid://b54cdnq0l05ki"

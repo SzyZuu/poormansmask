@@ -9,9 +9,10 @@ public partial class Gui : CanvasLayer
 		gm.Gui = this;
 	}
 	
-	public void AddItemIcon(Texture2D sprite)
+	public void AddItemIcon(Texture2D sprite, string path)
 	{
-		GridContainer gridContainer = GetNode<GridContainer>("%ItemGrid");
+		GridContainer gridContainer = GetNode<GridContainer>(path);
+		
 		TextureRect textureRect = new TextureRect();
 		textureRect.Texture = GD.Load<Texture2D>("res://icon.svg");
 		textureRect.CustomMinimumSize = new(64, 64);
