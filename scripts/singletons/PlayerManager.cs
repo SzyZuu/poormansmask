@@ -9,7 +9,24 @@ using poormansmask.scripts.repositories;
 public partial class PlayerManager : Node, IInventory
 {
 	private int _currentArmor;
+
 	private int _currentHealth;
+
+	[Signal]
+	public delegate void DeadEventHandler();
+	
+	private int Health
+	{
+		get => _currentHealth;
+		set
+		{
+			_currentHealth = value;
+			if (_currentHealth <= 0)
+			{
+				EmitSignalDead();
+			}
+		}
+	}
 
 	Godot.Collections.Dictionary<StatImprovements, float> _stats = new()
 	{
@@ -54,7 +71,7 @@ public partial class PlayerManager : Node, IInventory
 		int dealtArmor = Math.Min(amount, _currentArmor);
 		_currentArmor -= dealtArmor;
 		int dealtHealth = Math.Max(amount - dealtArmor, 0);
-		_currentHealth -= dealtHealth;
+		Health -= dealtHealth;
 		return dealtArmor + dealtHealth;
 	}
 

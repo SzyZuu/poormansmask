@@ -32,6 +32,10 @@ public partial class StateTree : Node
 	
 	public void ChangeState(StateBase newState)
 	{
+		if (!IsInstanceValid(newState))
+		{
+			return;
+		}
 		if (_activeState != null && IsInstanceValid(_activeState))
 		{
 			_activeState.Deactivate();
