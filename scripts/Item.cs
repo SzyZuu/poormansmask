@@ -23,6 +23,8 @@ public partial class Item : Area2D, IAmItem
 		itemDescriptionLabel.Text = ItemData.ItemDescription + "\n";
 		
 		AddColoredStats(itemDescriptionLabel);
+		itemDescriptionLabel.AddText("\n");
+		AddAbilityDesc(itemDescriptionLabel);
 	}
 
 	private void AddColoredStats(RichTextLabel label)
@@ -49,6 +51,12 @@ public partial class Item : Area2D, IAmItem
 					label.AddText("\n+" + stat.Value + " " + StatNameHelper.GetDisplayString(stat.Key));
 			}
 		}
+	}
+
+	private void AddAbilityDesc(RichTextLabel label)
+	{
+		label.PushColor(new Color("#F5F0B3"));
+		label.AddText("\n" + AbilityDescHelper.GetAbilityDesc(ItemData.GetAbility()));
 	}
 
 	private void OnItemEnter(Node2D body)

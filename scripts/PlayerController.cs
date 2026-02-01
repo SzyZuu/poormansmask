@@ -7,7 +7,7 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 {
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
-	private int _jumps = 2;
+	private int _jumps = 1;
 	private bool _coyoteActive = false;
 	private bool lastFrameFloor = false;
 	
