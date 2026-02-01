@@ -1,3 +1,4 @@
+using Godot;
 using poormansmask.scripts.interfaces;
 
 namespace poormansmask.scripts.abilities;
@@ -13,7 +14,7 @@ public class DoubleJump : IAbility
     {
     }
 
-    public void ActiveAction(PlayerController pc)
+    public void ActiveAction(PlayerController pc, InputEvent @event)
     {
     }
 }

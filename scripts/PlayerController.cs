@@ -69,6 +69,11 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 
 		Velocity = velocity;
 		MoveAndSlide();
+		
+		foreach(IAbility ability in _activeAbilities)
+		{
+			ability.Passive(this);
+		}
 	}
 
 	public override void _Input(InputEvent @event)
@@ -76,6 +81,11 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 		if (@event.IsActionPressed("Interact") && _itemInRange != null)
 		{
 			ItemPickUp(_itemInRange);
+		}
+
+		foreach (IAbility ability in _activeAbilities)
+		{
+			ability.ActiveAction(this, @event);
 		}
 	}
 
