@@ -16,6 +16,8 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 	private bool _coyoteActive;
 	private bool lastFrameFloor;
 	private bool _canAttack = true;
+	private bool _mouseOnLeft;
+	private bool _mouseLastLeft;
 	
 	private List<IAbility> _activeAbilities = new();
 	
@@ -91,6 +93,20 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 
 		if (@event.IsActionPressed("Attack") && _canAttack)
 			Attack();
+		
+		if (@event is InputEventMouseMotion eventMouseMotion)
+		{
+			Vector2 viewportSize = GetViewport().GetVisibleRect().Size;
+
+			if (eventMouseMotion.Position.X < viewportSize.X / 2)
+			{
+				_mouseOnLeft = true;
+				_mouseLastLeft = true;
+			}
+			
+			if(_mouseLastLeft != _mouseOnLeft)
+				_meleeRange.SetScale(new(_meleeRange.Scale.X * -1, _meleeRange.Scale.Y));
+		}
 
 		foreach (IAbility ability in _activeAbilities)
 		{
