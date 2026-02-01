@@ -94,4 +94,9 @@ public partial class PlayerManager : Node, IInventory
 		ability.Activate(pc);
 		pc.AbilityAdded(ability);
 	}
+
+	public float GetStat(StatImprovements stat)
+	{
+		return _stats[stat];
+	}
 }

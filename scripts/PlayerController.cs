@@ -2,27 +2,35 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using poormansmask.scripts;
+using poormansmask.scripts.enums;
 using poormansmask.scripts.interfaces;
 
 public partial class PlayerController : CharacterBody2D, IPickUp
 {
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
+	private float _attackCooldown = 0.1f;
+	private int _baseDamage = 10;
 	private int _jumps = 1;
 	private int _jumpsLeft = 0;
 	private bool _coyoteActive;
 	private bool lastFrameFloor;
+	private bool _canAttack = true;
 	
 	private List<IAbility> _activeAbilities = new();
 	
 	private IAmItem _itemInRange;
 	private IInventory _inventory;
 
+	private Area2D _meleeRange;
+
 	public override void _Ready()
 	{
 		PlayerManager pm =  GetNode<PlayerManager>("/root/PlayerManager");
 		_inventory = pm;
 		pm.Player = this;
+		
+		_meleeRange = GetNode<Area2D>("MeleeRange");
 	}
 	
 	public override void _PhysicsProcess(double delta)
@@ -79,9 +87,10 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 	public override void _Input(InputEvent @event)
 	{
 		if (@event.IsActionPressed("Interact") && _itemInRange != null)
-		{
 			ItemPickUp(_itemInRange);
-		}
+
+		if (@event.IsActionPressed("Attack") && _canAttack)
+			Attack();
 
 		foreach (IAbility ability in _activeAbilities)
 		{
@@ -113,5 +122,23 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 	public void AddJumps(int jumpAmount)
 	{
 		_jumps += jumpAmount;
+	}
+
+	private void Attack()
+	{
+		GD.Print("HIYA");
+		PlayerManager pm = GetNode<PlayerManager>("/root/PlayerManager");
+		_canAttack = false;
+
+		GetTree().CreateTimer(_attackCooldown).Timeout += () =>
+		{
+			_canAttack = true;
+		};
+
+		foreach (var body in _meleeRange.GetOverlappingBodies())
+		{
+			if(body is IDamageable enemy)
+				enemy.Damage((int)(_baseDamage * pm.GetStat(StatImprovements.DAMAGEMULTIPLIER)));
+		}
 	}
 }

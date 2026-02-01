@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ciju8b75t5p84"]
 
 [ext_resource type="Script" uid="uid://ddfviqhwsgw4r" path="res://scripts/StateMachine/StateTree.cs" id="1_8akpr"]
+[ext_resource type="Script" uid="uid://66fejfg3jf3n" path="res://scripts/Enemy.cs" id="1_afsbx"]
 [ext_resource type="Script" uid="uid://ddo0yqh8gxa3w" path="res://scripts/StateMachine/States/WanderingState.cs" id="2_afsbx"]
 [ext_resource type="Script" uid="uid://r51ntmqf0osk" path="res://scripts/StateMachine/States/KeepDistanceState.cs" id="3_mcfec"]
 [ext_resource type="Script" uid="uid://caacm4scdbh5" path="res://scripts/StateMachine/States/ShootState.cs" id="4_f1u7b"]
@@ -14,6 +15,7 @@ size = Vector2(16, 32)
 
 [node name="Ranged" type="CharacterBody2D" unique_id=1111393012]
 collision_layer = 4
+script = ExtResource("1_afsbx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1890628769]
 position = Vector2(0, -16)
