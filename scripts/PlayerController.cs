@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using poormansmask.scripts;
 using poormansmask.scripts.interfaces;
 
@@ -7,9 +8,12 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 {
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
-	private int _jumps = 2;
-	private bool _coyoteActive = false;
-	private bool lastFrameFloor = false;
+	private int _jumps = 1;
+	private int _jumpsLeft = 0;
+	private bool _coyoteActive;
+	private bool lastFrameFloor;
+	
+	private List<IAbility> _activeAbilities = new();
 	
 	private IAmItem _itemInRange;
 	private IInventory _inventory;
@@ -41,14 +45,14 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 		}else
 		{
 			lastFrameFloor = true;
-			_jumps = 2;
+			_jumpsLeft = _jumps;
 		}
 
 		// Handle Jump.
-		if (Input.IsActionJustPressed("jump") && (IsOnFloor() || _coyoteActive || _jumps > 0))
+		if (Input.IsActionJustPressed("jump") && (IsOnFloor() || _coyoteActive || _jumpsLeft > 0))
 		{
 			velocity.Y = JumpVelocity;
-			_jumps--;
+			_jumpsLeft--;
 		}
 
 		// Get the input direction and handle the movement/deceleration.
@@ -65,6 +69,11 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 
 		Velocity = velocity;
 		MoveAndSlide();
+		
+		foreach(IAbility ability in _activeAbilities)
+		{
+			ability.Passive(this);
+		}
 	}
 
 	public override void _Input(InputEvent @event)
@@ -72,6 +81,11 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 		if (@event.IsActionPressed("Interact") && _itemInRange != null)
 		{
 			ItemPickUp(_itemInRange);
+		}
+
+		foreach (IAbility ability in _activeAbilities)
+		{
+			ability.ActiveAction(this, @event);
 		}
 	}
 
@@ -89,5 +103,15 @@ public partial class PlayerController : CharacterBody2D, IPickUp
 	public void ItemOutOfRange()
 	{
 		_itemInRange = null;
+	}
+
+	public void AbilityAdded(IAbility ability)
+	{
+		_activeAbilities.Add(ability);
+	}
+
+	public void AddJumps(int jumpAmount)
+	{
+		_jumps += jumpAmount;
 	}
 }
