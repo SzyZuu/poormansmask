@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://h3nefumofaq0"]
 
+[ext_resource type="Script" uid="uid://66fejfg3jf3n" path="res://scripts/Enemy.cs" id="1_l823c"]
 [ext_resource type="Script" uid="uid://ddfviqhwsgw4r" path="res://scripts/StateMachine/StateTree.cs" id="1_nc52e"]
 [ext_resource type="Script" uid="uid://ddo0yqh8gxa3w" path="res://scripts/StateMachine/States/WanderingState.cs" id="2_l823c"]
 [ext_resource type="Script" uid="uid://cc86heh4sjfhr" path="res://scripts/StateMachine/States/ChaseState.cs" id="3_yo4vt"]
@@ -27,6 +28,7 @@ fill_from = Vector2(0.5, 0.5)
 
 [node name="Ranged" type="CharacterBody2D" unique_id=1111393012]
 collision_layer = 4
+script = ExtResource("1_l823c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1890628769]
 position = Vector2(0, -16)
