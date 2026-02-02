@@ -4,7 +4,7 @@ using poormansmask.scripts.interfaces;
 
 public partial class Enemy : CharacterBody2D, IDamageable
 {
-	[Export] public int Health = 10;
+	[Export] public int Health = 50;
 
 	[Signal]
 	public delegate void DeadEventHandler();
