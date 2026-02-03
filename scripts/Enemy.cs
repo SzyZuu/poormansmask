@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using poormansmask.scripts.interfaces;
+using poormansmask.scripts.singletons;
 
 public partial class Enemy : CharacterBody2D, IDamageable
 {
@@ -8,6 +9,12 @@ public partial class Enemy : CharacterBody2D, IDamageable
 
 	[Signal]
 	public delegate void DeadEventHandler();
+
+	public override void _Ready()
+	{
+		LevelManager lm = GetNode<LevelManager>("/root/LevelManager");
+		lm.RegisterEnemy(this);
+	}
 
 	public void Damage(int amount)
 	{

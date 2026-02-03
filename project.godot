@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 PlayerManager="*uid://wjwqbsmpuel4"
 GuiManager="*uid://w21smifm0r5h"
+LevelManager="*uid://bbvrlpuy25vnq"
 
 [dotnet]
 

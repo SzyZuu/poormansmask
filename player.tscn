@@ -25,6 +25,7 @@ texture = SubResource("PlaceholderTexture2D_i3pqv")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=804086455]
 position = Vector2(0, 1)
+zoom = Vector2(2.183, 2.183)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 drag_horizontal_enabled = true

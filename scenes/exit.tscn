@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://b17qjiqre5snr"]
+
+[ext_resource type="Script" uid="uid://py8nx4gtcd0t" path="res://scripts/Exit.cs" id="1_l0aq0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_38eme"]
+size = Vector2(20, 40)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l0aq0"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_uyw7u"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.8895703)
+colors = PackedColorArray(0.7567607, 0.62752306, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_l5n14"]
+gradient = SubResource("Gradient_uyw7u")
+fill = 1
+fill_from = Vector2(1, 0.5028337)
+fill_to = Vector2(0, 0.5)
+
+[node name="Exit" type="Area2D" unique_id=1488738783]
+script = ExtResource("1_l0aq0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1232506477]
+shape = SubResource("RectangleShape2D_38eme")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1295785433]
+modulate = Color(0, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_l0aq0")
+position = Vector2(-8.5, -4.7683716e-07)
+scale = Vector2(0.578125, 0.625)
+texture = SubResource("GradientTexture2D_l5n14")
