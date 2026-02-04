@@ -20,6 +20,7 @@ fill_from = Vector2(1, 0.5028337)
 fill_to = Vector2(0, 0.5)
 
 [node name="Exit" type="Area2D" unique_id=1488738783]
+collision_mask = 2
 script = ExtResource("1_l0aq0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1232506477]

@@ -5,6 +5,7 @@ namespace poormansmask.scripts.singletons;
 public partial class LevelManager : Node
 {
     private int _enemyCount;
+    private Exit _exit;
     
     [Signal]
     public delegate void StageClearedEventHandler();
@@ -19,5 +20,15 @@ public partial class LevelManager : Node
         };
         
         _enemyCount++;
+    }
+
+    public void LoadNext()
+    {
+        GD.Print("Works (yay)");
+    }
+
+    public void SetCurrentExit(Exit exit)
+    {
+        exit.PortalEntered += LoadNext;
     }
 }
